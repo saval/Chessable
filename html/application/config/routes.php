@@ -54,5 +54,6 @@ $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
 $route['([a-zA-Z0-9-_]+)/([a-zA-Z0-9-_]+)/([a-zA-Z0-9-_]+)'] = '$1/$2/$3';
+$route['reports/([a-zA-Z0-9-_]+)'] = 'reports/manager/$1';
 $route['([a-zA-Z0-9-_]+)/([a-zA-Z0-9-_]+)'] = '$1/$2';
 $route['([a-zA-Z0-9-_]+)'] = '$1/index';

@@ -49,6 +49,19 @@ class Branches_model extends CI_Model
         return $this->db->query($sql)->row_array();
     }
     
+    public function getByManyIds($branch_ids)
+    {
+        if (!is_array($branch_ids)) {
+            return [];
+        }
+        $branch_ids = array_filter($branch_ids, 'is_numeric');
+        if (empty($branch_ids)) {
+            return [];
+        }
+        $sql = sprintf("SELECT * FROM %s WHERE id IN (%s)", $this->table_name, implode(', ', $branch_ids));
+        return $this->db->query($sql)->result_array();
+    }
+    
     public function getSelectOptions($countries)
     {
         $branches = $this->getAll('country_code ASC');
