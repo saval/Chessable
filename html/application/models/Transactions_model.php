@@ -26,5 +26,42 @@ class Transactions_model extends CI_Model
         }
         return $this->db->insert_id();
     }
+    
+    public function getBalanceByCustomerId($customer_id)
+    {
+        $sql = sprintf(
+            "SELECT SUM(CASE WHEN amount IS NULL THEN 0 ELSE amount END) AS balance
+                        FROM %s
+                        WHERE customer_id = %d",
+            $this->table_name,
+            $customer_id
+        );
+        $row = $this->db->query($sql)->row_array();
+        return $row ? $row['balance'] : 0;
+    }
+    
+    public function customerToCustomerPayment($from_customer_id, $to_customer_id, $amount)
+    {
+        if (!$from_customer_id || !$to_customer_id || !$amount) {
+            return false;
+        }
+    
+        $this->db->trans_begin();
+        if (!$this->addNew(['customer_id' => $to_customer_id, 'amount' => $amount])) {
+            $this->db->trans_rollback();
+            return false;
+        }
+    
+        if (!$this->addNew(['customer_id' => $from_customer_id, 'amount' => -$amount])) {
+            $this->db->trans_rollback();
+            return false;
+        }
 
+        if ($this->db->trans_status() === false) {
+            $this->db->trans_rollback();
+            return false;
+        }
+        $this->db->trans_commit();
+        return true;
+    }
 }

@@ -28,5 +28,22 @@ $config = array(
             'label' => 'Bank branch',
             'rules' => 'required|numeric|valid_bank_branch'
         )
+    ),
+    'c2c_payment' => array(
+        array(
+            'field' => 'from_customer_id',
+            'label' => 'From',
+            'rules' => 'required|numeric|valid_customer'
+        ),
+        array(
+            'field' => 'to_customer_id',
+            'label' => 'To',
+            'rules' => 'required|numeric|valid_customer'
+        ),
+        array(
+            'field' => 'amount',
+            'label' => 'Amount to transfer',
+            'rules' => 'required|regex_match[/([\d]+)([.]?)([\d]?)/]'
+        )
     )
 );
