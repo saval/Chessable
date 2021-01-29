@@ -50,6 +50,7 @@ class Tests extends CI_Controller
         $branch = $this->branches_model->getById($branch1['id']);
         unset($branch['created_date'], $branch['updated_date']);
         $this->unit->run($branch, $branch1, 'branches_model->getById with existing ID');
+        $this->db->query('DELETE FROM bank_branch WHERE id = ' . $branch1['id']);
         
         return $this->unit->result();
     }
