@@ -28,6 +28,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <li class="nav-item">
                             <a class="nav-link" href="<?=site_url('/reports');?>">Reports</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="<?=site_url('/tests');?>">Tests</a>
+                        </li>
                     </ul>
                 </div>
             </div>
