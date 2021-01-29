@@ -13,7 +13,8 @@ SET time_zone = "+00:00";
 --
 -- Database: `chessable`
 --
-
+CREATE DATABASE chessable;
+USE chessable;
 -- --------------------------------------------------------
 
 --
